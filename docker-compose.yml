@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  main:
+    container_name: youtube
+    build:
+      context: .
+      target: production
+      dockerfile: dockerfile
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 1123:1124
+    command: npm run start:prod
+    networks:
+      - webnet
+networks:
+  webnet:

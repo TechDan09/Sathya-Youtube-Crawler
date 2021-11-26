@@ -10,7 +10,7 @@ const apiKey = process.env.API_KEY;
 const channelId = process.env.CHANNEL_ID;
 // const channelId = `UCV0qA-eDDICsRR9rPcnG7tw`; //test channel id
 const apiUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&eventType=live&maxResults=50&type=video&key=${apiKey}`;
-const channelUrl = 'https://www.youtube.com/c/SriSathyaSaiVrindaOfficial';
+const channelUrl = 'https://www.youtube.com/c/SriSathyaSaiVrindaOfficial/';
 
 //helper function to write data to file
 const writeToFile = (data, filename) => {
@@ -36,7 +36,11 @@ const getLiveVideoLink = (url) => {
         const videoId = response.data.items[0].id.videoId;
         const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
         const result = {
-          videoLink: videoLink,
+          title: response.data.items[0].snippet.title,
+          description: response.data.items[0].snippet.description,
+          thumbnailLarge: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+          thumbnailSmall: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+          link: videoLink,
         };
         writeToFile(JSON.stringify(result), 'youtubeLink.json');
         console.log('Channel Is Live');
@@ -75,7 +79,7 @@ const checkIfLive = () => {
 };
 
 // call the checkiflive function every 5 minutes
-cron.schedule('*/5 * * * *', function () {
+cron.schedule('*/1 * * * *', function () {
   checkIfLive();
 });
 
