@@ -11,7 +11,7 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - 1123:1124
+      - 1124:1124
     command: npm run start:prod
     networks:
       - webnet
