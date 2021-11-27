@@ -79,7 +79,7 @@ const checkIfLive = () => {
 };
 
 // call the checkiflive function every 5 minutes
-cron.schedule('*/1 * * * *', function () {
+cron.schedule('*/5 * * * *', function () {
   checkIfLive();
 });
 
